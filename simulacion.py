@@ -65,5 +65,7 @@ def crear_animacion(X, Y, fuente1, fuente2, frecuencia, frames=60, velocidad_son
 
     return ani
 
+
+
 if __name__ == "__main__":
     print("Este módulo es para ser usado desde app.py")

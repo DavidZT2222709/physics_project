@@ -5,22 +5,159 @@ import numpy as np
 import io
 import tempfile
 
+simulador_desktop = "otros/main.exe"
+
 def main():
     st.set_page_config(page_title="Interferencia de Ondas - Física 3", layout="wide")
-    st.title("🎶 Simulación Avanzada de Interferencia de Ondas Sonoras")
+    st.title("Simulación De Interfertencia de Ondas - Interferencia Constructiva y Destructiva")
 
     st.write("""
     Esta aplicación simula cómo dos ondas emitidas por dos fuentes diferentes se combinan 
-    en el espacio, mostrando las ecuaciones individuales, la interferencia y su animación.
+    en el espacio, mostrando las ecuaciones individuales, la interferencia y su animación,
+    pero para esto toca conocer los conceptos fisicos que van detrás de toda esta simulación.
     """)
+
+    if st.button("Reflexión y Transmisión"):
+
+        st.title("Reflexión")
+
+        st.write("""
+        La reflexión se presenta de dos formar y estas se pueden explicar gracias a las condiciones de fronteras, por esto imaginemos
+        que tenemos una cuerda amarrada en unos de sus extremos cuando programos una onda sobre esta
+        es conocida como onda incidente, cuando esta llega al otro obsservamos que una onda se devuelve por 
+        la parte de abajo de esta siendo esta la onda relfejada. Ahora estudiemos el siguiente caso cuando propagamos una onda incidente en una cuerda y esta tiene la otra punta libre
+        en la imagen (b) se observa que la onda reflejada se da devuelve por arriba, esto 
+        """)
+
+        st.image("imagenes/Reflexión.jpeg", caption= "Reflexión con condiciones de frontera. Fuente: OpenStax")
+
+        st.title("Transmisión")
+
+        st.write("""
+        Existen casos en los cuales la frontera del medio no es fija ni tampoco esta libre, pero se nos dan los casos
+        donde podemos tener dos cuerdas. Obsersvemos la imagen (a) donde se considera una cuerda de densisdad lineal baja
+        y esta atada a una cuerda de mayor densidad lineal. En estos casos las ondas reflejadas se desfasa con respecto a
+        la onda incidente. También hay una onda transmitida la cual esta en fase don respecto a la onda incidente.
+        """)
+
+        st.image("imagenes/Transmisión.jpeg", caption="Transmisión y Reflexión de onda en cuerdas de diferentes densisdad. Fuente: OpenStax")
+
+    if st.button("Interferencia de Ondas"):
+
+        st.title("Interferencia")
+
+        st.write("""
+        La interferencia es un fenomeno que se produce entre dos ondas identicas, cuando analizamos este podemos observarlo en
+        ondas sonoras, ondas electromagneticas como ondas de luz o incluso en las ondas producidas en un charco de agua. Estas dos
+        ondas llegan al mismo punto de exactamente en fase, por conceptos la interferencia es la suma algebraica de dos ondas que en
+        este caso son iguales por lo tanto estas se rigen la siguientes formulas y se representan visualmente así:
+        """)
+
+        st.latex(r"Y_1(x,t) = A\sin(kx - \omega t)")
+        st.latex(r"Y_2(x,t) = A\sin(kx - \omega t)")
+
+        st.subheader("Interferencia algebraica")
+
+        st.latex(r"Y(x,t) = Y_1 + Y_2 = 2A\sin(kx-\omega t)")
+
+        st.write("""La interferencia constructiva es aquella que se producen cuando dos ondas identicas se superponen entres si de tal forma que
+        sus valles y crestas coinciden entre si dando como resultado una onda con una mayor amplitud. Estas se producen cuando están es fase
+        es decir, tienen el mimso de punto de inicio en un periodo determinado.
+        """)
+
+        st.subheader("Representación Gráfica")
+
+        A = 1          # Amplitud
+        k = 2 * np.pi  # Número de onda
+        w = 2 * np.pi  # Frecuencia angular
+        t = 0          # Tiempo fijo (puedes animarlo si gustas)
+        x = np.linspace(0, 2, 1000)  # De 0 a 2 lambda (si lambda = 1)
+
+        y1 = A * np.sin(k * x - w * t)
+        y2 = A * np.sin(k * x - w * t)
+        y = y1 + y2
+
+        fig, axs = plt.subplots(3, 1, figsize=(8, 8), sharex=True)
+
+        axs[0].plot(x, y1, color='steelblue')
+        axs[0].set_title(r'(a) $y_1(x, t) = A \sin(kx - \omega t)$')
+        axs[0].set_ylabel('A(m)')
+        axs[0].grid(True)
+        axs[0].set_ylim(-2*A, 2*A)
+
+        axs[1].plot(x, y2, color='indianred')
+        axs[1].set_title(r'(b) $y_2(x, t) = A \sin(kx - \omega t)$')
+        axs[1].set_ylabel('A(m)')
+        axs[1].grid(True)
+        axs[1].set_ylim(-2*A, 2*A)
+
+        axs[2].plot(x, y, color='black')
+        axs[2].set_title(r'(c) $y(x, t) = y_1 + y_2 = 2A \sin(kx - \omega t)$')
+        axs[2].set_ylabel('A(m)')
+        axs[2].set_xlabel('λ(m)')
+        axs[2].grid(True)
+        axs[2].set_ylim(-2*A, 2*A)
+
+        plt.tight_layout()
+        plt.savefig("imagenes/ondas_superpuestas.png")
+
+        st.image("imagenes/ondas_superpuestas.png", caption="Interferencia Constructiva. Fuente: Autores")
+
+        st.write("""
+        La interferencia destructuva es aquella que se da cuando dos ondas se superponen de tal forma que
+        sus crestas y valler se cancelan mutuamente, dando como resultado una onda con menos amplitud o
+        amplitud 0, en terminos mas tecnicos cuando las ondas estan totalmente desfasadas, las crestas de
+        una onda coinciden con el valle de la otra, generando una onda resultante más pequeña o nula.
+        """)
+
+        A = 1
+        k = 2 * np.pi
+        w = 2 * np.pi
+        t = 0
+        x = np.linspace(0, 2, 1000)  # 0 a 2 lambda si lambda = 1
+
+        # Ondas
+        y1 = A * np.sin(k * x - w * t + np.pi)  # desfase de pi
+        y2 = A * np.sin(k * x - w * t)
+        y = y1 + y2  # suma de ondas
+
+        # Crear la figura y subgráficas
+        fig, axs = plt.subplots(3, 1, figsize=(8, 8), sharex=True)
+
+        # Gráfica (a)
+        axs[0].plot(x, y1, color='steelblue')
+        axs[0].set_title(r'(a) $y_1(x, t) = A \sin(kx - \omega t + \pi)$')
+        axs[0].set_ylabel('y(m)')
+        axs[0].grid(True)
+        axs[0].set_ylim(-2*A, 2*A)
+
+        # Gráfica (b)
+        axs[1].plot(x, y2, color='indianred')
+        axs[1].set_title(r'(b) $y_2(x, t) = A \sin(kx - \omega t)$')
+        axs[1].set_ylabel('y(m)')
+        axs[1].grid(True)
+        axs[1].set_ylim(-2*A, 2*A)
+
+        # Gráfica (c)
+        axs[2].plot(x, y, color='black')
+        axs[2].set_title(r'(c) $y(x, t) = y_1 + y_2 = 0$')
+        axs[2].set_ylabel('y(m)')
+        axs[2].set_xlabel('x(m)')
+        axs[2].grid(True)
+        axs[2].set_ylim(-2*A, 2*A)
+
+        plt.tight_layout()
+        plt.savefig("imagenes/interferencia_destructiva.png")
+
+        st.image("imagenes/interferencia_destructiva.png", caption="Interferencia Destructiva. Fuente: Autores")
 
     # --- Barra lateral de configuración ---
     st.sidebar.header("⚙️ Parámetros de la simulación")
 
-    x_min = st.sidebar.number_input("x mínimo (m)", value=-5.0)
-    x_max = st.sidebar.number_input("x máximo (m)", value=5.0)
-    y_min = st.sidebar.number_input("y mínimo (m)", value=-5.0)
-    y_max = st.sidebar.number_input("y máximo (m)", value=5.0)
+    x_min = st.sidebar.number_input("x mínimo (m)", value=-10.0)
+    x_max = st.sidebar.number_input("x máximo (m)", value=10.0)
+    y_min = st.sidebar.number_input("y mínimo (m)", value=-10.0)
+    y_max = st.sidebar.number_input("y máximo (m)", value=10.0)
     resolucion = st.sidebar.slider("Resolución de la malla", min_value=100, max_value=1000, value=500, step=50)
 
     st.sidebar.subheader("📍 Posiciones de las fuentes")
@@ -99,6 +236,21 @@ def main():
             file_name="interferencia.gif",
             mime="image/gif"
         )
+
+        try:
+            with open(simulador_desktop, "rb") as archivo:
+                app_exe = archivo.read()
+
+            st.download_button(
+                label= "📥 Dercargar simulador para escritorio",
+                data = app_exe,
+                file_name="otros/main.exe",
+                mime = "application/octet-stream"
+            )
+        except FileNotFoundError:
+            st.error(f"Archivo {simulador_desktop} no se encontró.")
+        except Exception as e:
+            st.error(f"Error con el archivo{e}")
 
     st.markdown("---")
 
