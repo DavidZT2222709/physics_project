@@ -9,7 +9,7 @@ simulador_desktop = "otros/main.exe"
 
 def main():
     st.set_page_config(page_title="Interferencia de Ondas - Física 3", layout="wide")
-    st.title("Simulación De Interfertencia de Ondas - Interferencia Constructiva y Destructiva")
+    st.title("🛜 Simulación De Interfertencia de Ondas - Interferencia Constructiva y Destructiva")
 
     st.subheader("Autores: Angely Contreras - Juan Gabriel García - David Zapata")
 
@@ -286,6 +286,10 @@ def main():
 
     st.latex(r"0 < A < 2A")
 
+    st.info("Para mas información sobre ondas consulte lo siguiente 💡")
+
+    st.link_button("Phet - Interfrencia de Ondas", url="https://phet.colorado.edu/sims/html/wave-interference/latest/wave-interference_all.html?locale=es")
+    st.link_button("OpenStax - Interferencia de Ondas", url="https://openstax.org/books/f%C3%ADsica-universitaria-volumen-1/pages/16-5-interferencia-de-ondas")
     # --- Barra lateral de configuración ---
     st.sidebar.header("⚙️ Parámetros de la simulación")
 
