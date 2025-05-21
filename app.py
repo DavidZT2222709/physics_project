@@ -11,6 +11,8 @@ def main():
     st.set_page_config(page_title="Interferencia de Ondas - Física 3", layout="wide")
     st.title("Simulación De Interfertencia de Ondas - Interferencia Constructiva y Destructiva")
 
+    st.subheader("Autores: Angely Contreras - Juan Gabriel García - David Zapata")
+
     st.write("""
     Esta aplicación simula cómo dos ondas emitidas por dos fuentes diferentes se combinan 
     en el espacio, mostrando las ecuaciones individuales, la interferencia y su animación,
@@ -18,7 +20,9 @@ def main():
     """)
 
 
-    st.title("Reflexión")
+    st.title("Reflexión y Transmisión de Onda")
+
+    st.subheader("Reflexión")
 
     st.write("""
     La reflexión se presenta de dos formar y estas se pueden explicar gracias a las condiciones de fronteras, por esto imaginemos
@@ -30,7 +34,7 @@ def main():
 
     st.image("imagenes/Reflexión.jpeg", caption= "Reflexión con condiciones de frontera. Fuente: OpenStax")
 
-    st.title("Transmisión")
+    st.subheader("Transmisión")
 
     st.write("""
     Existen casos en los cuales la frontera del medio no es fija ni tampoco esta libre, pero se nos dan los casos
@@ -141,7 +145,7 @@ def main():
     axs[2].plot(x, y, color='black')
     axs[2].set_title(r'(c) $y(x, t) = y_1 + y_2 = 0$')
     axs[2].set_ylabel('y(m)')
-    axs[2].set_xlabel('x(m)')
+    axs[2].set_xlabel('λ(m)')
     axs[2].grid(True)
     axs[2].set_ylim(-2*A, 2*A)
 
@@ -149,6 +153,138 @@ def main():
     plt.savefig("imagenes/interferencia_destructiva.png")
 
     st.image("imagenes/interferencia_destructiva.png", caption="Interferencia Destructiva. Fuente: Autores")
+
+    st.write("""Cuando se presenta interferencia constructiva en ondas se observa que la amplitud de la interferencia
+    es del doble de la amplitud de la onda original, la longitud de onda es aquella que nos dice la distancia que hay
+    entre cresta y cresta en una onda también conocida como 'λ' si queremos hallar la interferencia que se presenta cierto
+    se tiene en cuenta lo siguiente:""")
+
+    A = (-3, 0)
+    B = (3, 0)
+    C = (0, 2)
+
+    # Crear figura y ejes
+    fig, ax = plt.subplots(figsize=(8, 6))
+
+    # Dibujar líneas (vectores) AC y BC
+    ax.plot([A[0], C[0]], [A[1], C[1]], 'k-', linewidth=2)  # Línea AC
+    ax.plot([B[0], C[0]], [B[1], C[1]], 'k-', linewidth=2)  # Línea BC
+
+    # Dibujar puntos
+    ax.plot(*A, 'o', color='blue')
+    ax.plot(*B, 'o', color='blue')
+    ax.plot(*C, 'o', color='blue')
+
+    # Etiquetas de los puntos
+    ax.text(A[0]-0.3, A[1]-0.3, 'A', color='blue')
+    ax.text(B[0]+0.1, B[1]-0.3, 'B', color='blue')
+    ax.text(C[0]+0.1, C[1]+0.1, 'C', color='blue')
+
+    # Textos adicionales
+    ax.text(A[0], A[1]-0.6, 'Fuente 1', fontsize=10, ha='center')
+    ax.text(B[0], B[1]-0.6, 'Fuente 2', fontsize=10, ha='center')
+    ax.text(C[0], C[1]-0.4, 'Interferencia', fontsize=10, ha='center')
+    ax.text(C[0]-0.2, C[1]+0.4, 'A = 2A', fontsize=12, fontweight='bold')
+
+    # Etiquetas de los vectores
+    ax.text(-1.8, 1.2, 'u', fontsize=12)
+    ax.text(1.4, 1.2, 'v', fontsize=12)
+
+    # Configurar cuadrícula y ejes
+    ax.set_xlim(-5, 5)
+    ax.set_ylim(-2, 3)
+    ax.set_xticks(range(-5, 6))
+    ax.set_yticks(range(-2, 4))
+    ax.grid(True, linestyle='--', linewidth=0.5)
+    ax.set_aspect('equal', adjustable='box')
+
+    # Centrar los ejes en el origen
+    ax.spines['left'].set_position('zero')
+    ax.spines['bottom'].set_position('zero')
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
+
+    plt.savefig("imagenes/plano_cartesiano.png")
+
+    st.image("imagenes/plano_cartesiano.png", caption="Plano con posición de fuente en igual dirección. Fuentes:Autores")
+
+    st.write("""Como se observa en la imagen cuando se presenta interferencia constructuva el las ondas se encuentran
+    en fase por la longitud de onda que estas presentan lo cual hace que su amplitud sea el doble de la amplitud inicial.
+    cuando se presentan estos casos de que existe interferencia contructiva y queremos que hallar la interferencia en un punto cualquiera
+    donde se de IC se deben tomar la siguiente ecuación:""")
+
+    st.latex(r"\Delta S = S_2 - S_1 ")
+
+    st.write("""Cuando debido a que esta se encuentran en fase por la condición de sus longitud de onda que es 'λ' esta ecuació se puede
+    reescribir de la siguiente manera:""")
+
+    st.latex(r"\Delta S = m \lambda ")
+    st.latex(r"m = 0, 1, 2, 3, ..., \infty")
+
+    st.write("La representación gráfica es ls siguiente:")
+
+    A = (-3, 0)
+    B = (3, 0)
+    C = (-2, 3)
+
+    # Crear figura y ejes
+    fig, ax = plt.subplots(figsize=(8, 6))
+
+    # Dibujar vectores como líneas
+    ax.plot([A[0], C[0]], [A[1], C[1]], color='black', linewidth=2)  # Vector u (AC)
+    ax.plot([B[0], C[0]], [B[1], C[1]], color='black', linewidth=2)  # Vector v (BC)
+
+    # Dibujar puntos
+    ax.plot(*A, 'o', color='blue')
+    ax.plot(*B, 'o', color='blue')
+    ax.plot(*C, 'o', color='blue')
+
+    # Etiquetas de puntos
+    ax.text(A[0]-0.2, A[1]-0.5, 'A', color='blue')
+    ax.text(B[0]+0.1, B[1]-0.5, 'B', color='blue')
+    ax.text(C[0], C[1]+0.2, 'C', color='blue')
+
+    # Texto de vectores
+    ax.text(-2.7, 1.5, 'u', fontsize=12)
+    ax.text(0.7, 1.7, 'v', fontsize=12)
+
+    # Texto de fuentes
+    ax.text(A[0], A[1]-1, 'Fuente 1', fontsize=12, ha='center')
+    ax.text(B[0], B[1]-1, 'Fuente 2', fontsize=12, ha='center')
+
+    # Configurar cuadrícula
+    ax.grid(True, linestyle='--', linewidth=0.5)
+
+    # Limitar y centrar ejes
+    ax.set_xlim(-4.5, 4.5)
+    ax.set_ylim(-3.5, 4.5)
+    ax.set_xticks(range(-5, 6))
+    ax.set_yticks(range(-4, 6))
+    ax.set_aspect('equal', adjustable='box')
+
+    # Mover los ejes al centro
+    ax.spines['left'].set_position('zero')
+    ax.spines['bottom'].set_position('zero')
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
+
+    plt.savefig("imagenes/interferencia_sin_origen.png")
+
+    st.image("imagenes/interferencia_sin_origen.png", caption="Interferencia fuera del eje optico. Fuente: Autores")
+
+    st.write("""La interferencia destructiva se da cuando las ondas no estan en fase con respecto a su longitud de onda, cuando una de las ondas esra desfasada
+    tan solo 'λ/2' con respecto a la otra, en estos casos  cuando se presenta desfase la amplitud en estos puntos es 0, la expresión para esta es la siguiente:""")
+
+    st.latex(r"\Delta S = (2m + 1) \frac{\lambda}{2} ")
+    st.latex(r"m = 0, 1, 2, 3, ..., \infty")
+
+    st.write("Nota: Cuando el desfase no es 'λ' o 'λ/2' la amplitud tiene la siguiente condición:")
+
+    st.latex(r"0 < A < 2A")
 
     # --- Barra lateral de configuración ---
     st.sidebar.header("⚙️ Parámetros de la simulación")
