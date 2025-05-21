@@ -9,6 +9,13 @@ simulador_desktop = "otros/main.exe"
 
 def main():
     st.set_page_config(page_title="Interferencia de Ondas - Física 3", layout="wide")
+    
+    st.logo(
+        image="imagenes/Logo.png",
+        size="large",
+        icon_image="imagenes/Logo.png"
+    )
+    
     st.title("🛜 Simulación De Interfertencia de Ondas - Interferencia Constructiva y Destructiva")
 
     st.subheader("Autores: Angely Contreras - Juan Gabriel García - David Zapata")
