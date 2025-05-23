@@ -18,7 +18,7 @@ def main():
     
     st.title("🛜 Simulación De Interfertencia de Ondas - Interferencia Constructiva y Destructiva")
 
-    st.subheader("Autores: Angely Contreras - Juan Gabriel García - David Zapata")
+    st.subheader("Autores: Angely Carreño(2232609) - Juan Gabriel García(2230083) - David Zapata(2222709)")
 
     st.write("""
     Esta aplicación simula cómo dos ondas emitidas por dos fuentes diferentes se combinan 
